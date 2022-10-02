@@ -5,21 +5,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private PlayerInput _playerInput;
-    private O2 _o2;
 
-    [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private SpriteRenderer _sprite;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer sprite;
     
     [SerializeField] private float speed;
-    
+
+    [HideInInspector] public int resource;
     void Start()
     {
-        _playerInput = new PlayerInput(_rb, speed);
-        _o2 = FindObjectOfType<O2>();
+        _playerInput = new PlayerInput(rb, speed);
     }
 
     void Update()
     {
-        _playerInput.Update(_sprite);
+        _playerInput.Update(sprite);
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 3)
+        {
+            _playerInput.PickUpResource(ref resource);
+        }
     }
 }

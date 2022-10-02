@@ -10,23 +10,23 @@ public class SubmarineInput
     private float _speedX;
     private float _speedY;
 
-    private Rigidbody2D RB;
+    private Rigidbody2D _rb;
     public SubmarineInput(Rigidbody2D rb, float speed)
     {
-        RB = rb;
+        _rb = rb;
         _speed = speed;
     }
 
     public void Update()
     {
-        _speedX = UnityEngine.Input.GetAxis("Horizontal") * _speed;
-        _speedY = UnityEngine.Input.GetAxis("Vertical") * _speed;
+        _speedX = Input.GetAxis("Horizontal") * _speed;
+        _speedY = Input.GetAxis("Vertical") * _speed;
         
         if (_speedX != 0 
             || _speedY != 0)
         {
             _move = new SubmarineMove();
-            _move.Move(RB, _speedX, _speedY);
+            _move.Move(_rb, _speedX, _speedY);
         }
     }
 }

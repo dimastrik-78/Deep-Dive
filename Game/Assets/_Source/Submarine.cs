@@ -4,26 +4,40 @@ using UnityEngine;
 
 public class Submarine : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private float speed;
 
-    [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Rigidbody2D rb;
     
-    private SubmarineInput _playerInput;
-    private SubmarineIvent _playerIvent;
-    private O2 _o2;
-
-    [HideInInspector] public float timeIvent = 10;
+    private SubmarineInput _submarineInput;
+    private SubmarineEvent _submarineEvent;
+    
+    [HideInInspector] public float timeEvent;
+    [HideInInspector] public float submarineHeal = 5;
+    [HideInInspector] public bool eventInProgress;
+    
+    private bool _canMove = true;
+    
     void Start()
     {
-        _playerInput = new SubmarineInput(_rb, _speed);
-        _playerIvent = new SubmarineIvent();
-        _o2 = FindObjectOfType<O2>();
+        _submarineInput = new SubmarineInput(rb, speed);
+        _submarineEvent = new SubmarineEvent();
     }
 
     void Update()
     {
-        _playerInput.Update();
+        if (_canMove
+            && !eventInProgress)
+        {
+            _submarineInput.Update();
+        }
 
-        timeIvent -= Time.deltaTime;
+        _submarineEvent.Update(ref timeEvent, eventInProgress);
+    }
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.layer == 7)
+        {
+            _canMove = false;
+        }
     }
 }

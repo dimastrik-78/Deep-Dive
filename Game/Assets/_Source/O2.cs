@@ -20,10 +20,9 @@ public class O2 : MonoBehaviour
         {
             OxygenReplenished();
         }
-        
+
         if (o2 <= 0)
         {
-            Debug.Log("Lose");
             Time.timeScale = 0;
         }
     }
@@ -31,7 +30,6 @@ public class O2 : MonoBehaviour
     private void WasteOxygen()
     {
         time -= Time.deltaTime;
-        
         if (time <= 0)
         {
             o2--;
