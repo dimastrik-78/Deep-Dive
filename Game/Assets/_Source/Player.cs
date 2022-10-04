@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed;
 
     [HideInInspector] public int resource;
+    [HideInInspector] public bool win;
+    
     void Start()
     {
         _playerInput = new PlayerInput(rb, speed);
@@ -26,6 +28,14 @@ public class Player : MonoBehaviour
         if (other.gameObject.layer == 3)
         {
             _playerInput.PickUpResource(ref resource);
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D col) // добавлено
+    {
+        if (col.gameObject.layer == 8)
+        {
+            win = true;
         }
     }
 }

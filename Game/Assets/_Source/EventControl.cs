@@ -17,9 +17,9 @@ public class EventControl
         _submarine.eventInProgress = false;
     }
 
-    public void ResetEvent(GameObject gameObject, ref float time, ref int taskProgress)
+    public void ResetEvent(GameObject gameObject, ref int taskProgress)
     {
-        time = 10;
+       // time = 10;
         taskProgress = 0;
         gameObject.SetActive(false);
 

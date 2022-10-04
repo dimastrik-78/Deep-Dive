@@ -12,10 +12,10 @@ public class Submarine : MonoBehaviour
     private SubmarineEvent _submarineEvent;
     
     [HideInInspector] public float timeEvent;
-    [HideInInspector] public float submarineHeal = 5;
+    [HideInInspector] public int submarineHeal = 5;
     [HideInInspector] public bool eventInProgress;
-    
-    private bool _canMove = true;
+    [HideInInspector] public bool win;
+    [HideInInspector] public bool canMove = true;
     
     void Start()
     {
@@ -25,19 +25,30 @@ public class Submarine : MonoBehaviour
 
     void Update()
     {
-        if (_canMove
+        if (canMove
             && !eventInProgress)
         {
             _submarineInput.Update();
         }
 
-        _submarineEvent.Update(ref timeEvent, eventInProgress);
+        if(!(rb.velocity.x <= 0.3
+            && rb.velocity.x >= -0.3
+            && rb.velocity.y <= 0.3
+            && rb.velocity.y >= -0.3))
+        {
+            _submarineEvent.Update(ref timeEvent, eventInProgress);
+        }
     }
-    private void OnTriggerStay2D(Collider2D other)
+    
+    private void OnTriggerEnter2D(Collider2D other) // изменён тригер
     {
         if (other.gameObject.layer == 7)
         {
-            _canMove = false;
+            canMove = false;
         }
-    }
+        if (other.gameObject.layer == 8)
+        {
+            win = true;
+        }
+    } 
 }

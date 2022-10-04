@@ -9,7 +9,7 @@ public class SubmarineEventArrow : MonoBehaviour
 
     public GameObject[] TaskProgress;
 
-    private float _time = 10;
+    private float _time = 5;
     private int _taskProgress;
     private int[] _whichArrow;
     
@@ -36,7 +36,8 @@ public class SubmarineEventArrow : MonoBehaviour
         {
             combinations = GenerateCombination();
             _eventControl.MissionFailed();
-            _eventControl.ResetEvent(gameObject, ref _time, ref _taskProgress);
+            _eventControl.ResetEvent(gameObject,  ref _taskProgress);
+            _time = 5;
         }
 
         if (_taskProgress == 0
@@ -66,7 +67,8 @@ public class SubmarineEventArrow : MonoBehaviour
         {
             combinations = GenerateCombination();
             _eventControl.MissionFailed();
-            _eventControl.ResetEvent(gameObject, ref _time, ref _taskProgress);
+            _eventControl.ResetEvent(gameObject, ref _taskProgress);
+            _time = 5;
         }
     }
 
@@ -91,19 +93,19 @@ public class SubmarineEventArrow : MonoBehaviour
         {
             if (_whichArrow[i] == 0)
             {
-                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, 90);
+                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             else if (_whichArrow[i] == 1)
             {
-                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, -90);
+                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, 180);
             }
             else if (_whichArrow[i] == 2)
             {
-                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, 180);
+                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             else if (_whichArrow[i] == 3)
             {
-                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, 0);
+                TaskProgress[i].transform.rotation = Quaternion.Euler(0, 0, -90);
             }
         }
         return combination;
@@ -118,7 +120,8 @@ public class SubmarineEventArrow : MonoBehaviour
         {
             combinations = GenerateCombination();
             _eventControl.TaskCompleted();
-            _eventControl.ResetEvent(gameObject, ref _time, ref _taskProgress);
+            _eventControl.ResetEvent(gameObject,  ref _taskProgress);
+            _time = 5;
         }
     }
 }
